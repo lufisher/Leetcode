@@ -1,0 +1,15 @@
+//其实就是用与全1的位进行异或运算，主要是先要确定提供的num的位数
+//虽然其实也可以考虑用log的换底公式来输出num的位数，log2num，但是这样会产生类型转换上的问题，结果不准备
+//所以这样一个个相除的办法是最好的，最简单的
+class Solution {
+public:
+	int findComplement(int num) {
+		int bitsize = 0;
+		int newnum = num;
+		while (newnum != 0) {
+				++bitsize;
+				newnum = newnum / 2;
+		}
+		return (((1<<bitsize)-1) ^ num);
+	}
+};
