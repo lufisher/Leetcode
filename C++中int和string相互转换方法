@@ -1,0 +1,31 @@
+一、string转int的方式
+
+采用最原始的string, 然后按照十进制的特点进行算术运算得到int，但是这种方式太麻烦，这里不介绍了。
+
+采用标准库中atoi函数。
+
+string s = "12"; 
+int a = atoi(s.c_str()); 
+对于其他类型也都有相应的标准库函数，比如浮点型atof(),long型atol()等等。
+
+采用sstream头文件中定义的字符串流对象来实现转换。
+
+istringstream is("12"); //构造输入字符串流，流的内容初始化为“12”的字符串 
+int i; 
+is >> i; //从is流中读入一个int整数存入i中
+
+二、int转string的方式
+
+采用标准库中的to_string函数。
+
+int i = 12; 
+cout << std::to_string(i) << endl; 
+不需要包含任何头文件，应该是在utility中，但无需包含，直接使用，还定义任何其他内置类型转为string的重载函数，很方便。
+
+采用sstream中定义的字符串流对象来实现。
+
+ostringstream os; //构造一个输出字符串流，流内容为空 
+int i = 12; 
+os << i; //向输出字符串流中输出int整数i的内容 
+cout << os.str() << endl; //利用字符串流的str函数获取流中的内容 
+字符串流对象的str函数对于istringstream和ostringstream都适用，都可以获取流中的内容。
