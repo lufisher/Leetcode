@@ -1,0 +1,48 @@
+A string S of lowercase letters is given. We want to partition this string into as many parts as possible so that each letter appears in at most one part, and return a list of integers representing the size of these parts.
+
+Example 1:
+Input: S = "ababcbacadefegdehijhklij"
+Output: [9,7,8]
+Explanation:
+The partition is "ababcbaca", "defegde", "hijhklij".
+This is a partition so that each letter appears in at most one part.
+A partition like "ababcbacadefegde", "hijhklij" is incorrect, because it splits S into less parts.
+Note:
+
+S will have length in range [1, 500].
+S will consist of lowercase letters ('a' to 'z') only.
+//方法一：把string分来两半，分别装入两个set中，然后不断判断是否是符合要求的分割
+class Solution {
+public:
+	vector<int> partitionLabels(string S) {
+		if (S.size() == 1)
+			return { 1 };
+		multiset<char> myset1, myset2;
+		int result = 1;
+		vector<int> vresult;
+		auto p = S.begin();
+		auto q = p + 1;
+		myset1.insert(*p);
+		for (; q != S.end(); ++q)
+			myset2.insert(*q);
+		while (p + 1 != S.end()) {
+			myset1.insert(*(p + 1));
+			myset2.erase(myset2.find(*(p + 1)));
+			++p;
+			if (interaction(myset1, myset2)) //如果有交集
+				result += 1;
+			else {//如果没交集
+				vresult.push_back(result);
+				result = 1;
+			}
+			vresult.push_back(result);
+			return vresult;
+		}
+	}
+	bool interaction(multiset<char> s1, multiset<char> s2) {//两个multiset如果有交集返回1，没有交集返回0
+		for (auto c : s1)
+			if (s2.count(c))
+				return 1;
+		return 0;
+	}
+};
