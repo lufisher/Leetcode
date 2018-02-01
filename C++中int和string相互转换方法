@@ -5,10 +5,10 @@
 采用标准库中atoi函数。
 
 string s = "12"; 
-int a = atoi(s.c_str()); 
+int a = atoi(s.c_str()); //string中的c_str()函数返回字符串字面值，atoi函数把字符串字面值转换为int型
 对于其他类型也都有相应的标准库函数，比如浮点型atof(),long型atol()等等。
 
-采用sstream头文件中定义的字符串流对象来实现转换。
+采用sstream头文件中定义的字符串流对象来实现转换。//推荐这种方法！
 
 istringstream is("12"); //构造输入字符串流，流的内容初始化为“12”的字符串 
 int i; 
