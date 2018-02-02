@@ -1,0 +1,38 @@
+Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
+
+Example:
+Given a = 1 and b = 2, return 3.
+
+//这里说的，不能用加减号，也就意味着，极有可能会运用位运算，而事实上确实如此
+//我们使用位运算，来模拟二进制加法的计算过程
+Explanation
+Imagine we are doing addition in binary. We can break it into 3 parts:
+
+calculate every bit correspondingly and find what remains
+if it exceeds, bring it to next bit as a carry
+add remain and carry, which we can do recursively
+For example,
+
+7 + 5 =
+
+0 0 1 1 1
+0 0 1 0 1
+----------
+0 0 0 1 0 -----> remain = a xor b //事实上这里就是没有把进位加进去的相加结果
+0 1 0 1 0 -----> carry = (a and b) << 1 //事实上这里就是需要加上的进位
+---------- -----> another addition
+0 1 0 0 0
+0 0 1 0 0
+----------
+0 1 1 0 0
+
+So answer is pretty trivial, we do first 2 steps and invoke the method again using the results of previous steps as arguments.
+
+Solution
+Here is the code
+
+public static int getSum(int a, int b) {
+  if (a == 0) return b;
+  if (b == 0) return a;
+  return getSum(a ^ b, (a & b) << 1);//不断地相加，知道进位为0，也就可以获得结果了
+}
