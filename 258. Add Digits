@@ -1,0 +1,17 @@
+//这题蛮干方法当然是可以的，那就是常规思路不断加最后得到结果
+//这里需要用巧妙的方法。假设num=a0+a1*10+a2*10^2+...+an*10^n
+//=a0+a1+...+an+9*(a1+a2+...+an)+9*10*(a2+a3+...+an)+...+9*10^(n-1)*an
+//也就是num%9=(a0+a1+...+an)%9=(a00+a01+...)%9=...
+//也就是可以通过与9的取余来获得结果
+//当然，也要分三种情况
+class Solution {
+public:
+    int addDigits(int num) {
+        if(num<10)
+            return num;
+        else if(num%9==0)
+            return 9;
+        else
+            return num%9;
+    }
+};
