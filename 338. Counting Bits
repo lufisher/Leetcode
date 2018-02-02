@@ -1,0 +1,29 @@
+Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1's in their binary representation and return them as an array.
+
+Example:
+For num = 5 you should return [0,1,1,2,1,2].
+
+Follow up:
+
+It is very easy to come up with a solution with run time O(n*sizeof(integer)). But can you do it in linear time O(n) /possibly in a single pass?
+Space complexity should be O(n).
+Can you do it like a boss? Do it without using any builtin function like __builtin_popcount in c++ or in any other language.
+
+这题其实本质上就是找规律，因为排列其实都是固定的，就看排列到哪里
+如果每个数都判断1有多少位，那是做了大量的重复运算。原本以为是要从数字里面找规律
+0
+1
+1 2
+1 2 2 3
+1 2 2 3 2 3 3 4
+...
+但其实不是的。认真观察可以发现某位上的结果就是这一位数和前一位数与后的位加一
+class Solution {
+public:
+    vector<int> countBits(int num) {
+        vector<int> ret(num+1, 0);
+        for (int i = 1; i <= num; ++i)
+            ret[i] = ret[i&(i-1)] + 1;
+        return ret;
+    }
+};
