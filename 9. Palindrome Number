@@ -1,0 +1,17 @@
+Determine whether an integer is a palindrome. Do this without extra space.
+
+//这个问题其实是毫无意义的，因为不可能不用额外空间就能成功，变量，栈等总是需要空间的
+//最多说是O(1)空间
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if(x<0|| (x!=0 &&x%10==0)) return false;
+        int sum=0;
+        while(x>sum)
+        {
+            sum = sum*10+x%10;
+            x = x/10;
+        }
+        return (x==sum)||(x==sum/10);
+    }
+};
